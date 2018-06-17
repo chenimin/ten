@@ -8,6 +8,7 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -18,15 +19,19 @@ import java.util.Arrays;
 
 @Aspect
 @Component
+@Order(5) //定义切面执行顺序，数值越小，执行优先级越高
 public class WebLogAspect {
 
     public static final Logger logger = LoggerFactory.getLogger(WebLogAspect.class);
+
+    ThreadLocal<Long> startTime = new ThreadLocal<>();
 
     @Pointcut("execution(* ci.ten.controller.*.*(..))")
     public void webLog(){}
 
     @Before("webLog()")
     public void doBefore(JoinPoint joinPoint) throws Throwable {
+        startTime.set(System.currentTimeMillis());
         // 接收到请求，记录请求内容
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
@@ -44,6 +49,7 @@ public class WebLogAspect {
     public void doAfterReturning(Object ret) throws Throwable {
         // 处理完请求，返回内容
         logger.info("RESPONSE : {}" , new Gson().toJson(ret));
+        logger.info("SPEND TIME : ：{}{}" , (System.currentTimeMillis() - startTime.get()),"ms");
     }
 
 }

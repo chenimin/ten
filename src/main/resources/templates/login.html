@@ -9,11 +9,11 @@
     <meta http-equiv="Cache-Control" content="no-siteapp" />
 
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="/css/font.css">
-	<link rel="stylesheet" href="/css/xadmin.css">
+    <link rel="stylesheet" href="./css/font.css">
+	<link rel="stylesheet" href="./css/xadmin.css">
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-    <script src="/lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="/js/xadmin.js"></script>
+    <script src="./lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./js/xadmin.js"></script>
 
 </head>
 <body class="login-bg">
@@ -48,7 +48,12 @@
                       url : "check",  //请求路径
                       data : formData,
                       success : function(msg) {  //异步请求成功执行的回调函数
-                          alert("成功了: " + msg);
+                          if (msg.code == 200){
+                              layer.msg("登陆成功，正在重定向到首页");
+                              setInterval(function () {
+                                  window.location.href="index";
+                              },1000)
+                          }
                           $("#usernameinfo").html(msg);
                       },//ajax引擎一般用不到；状态信息；抛出的异常信息
                       error : function(XMLHttpRequest, textStatus, errorThrown) {

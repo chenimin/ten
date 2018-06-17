@@ -9,13 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/login")
 public class LoginController {
     @Autowired
     private LoginService loginService;
 
 
-    @RequestMapping("/index")
+    @RequestMapping("/login")
     public String login(){
         return "login";
     }
@@ -25,9 +24,14 @@ public class LoginController {
     public AjaxResult check(String  username,String password){
         User user = loginService.getUserbyUsername(username);
         if (user == null){
-            return new AjaxResult(400,"找不到该用户");
+            return new AjaxResult(400,"用户名或密码错误");
         }
-        return new AjaxResult();
+        return new AjaxResult("登陆成功！");
+    }
+
+    @RequestMapping("/index")
+    public String index(){
+        return "index";
     }
 
 }
