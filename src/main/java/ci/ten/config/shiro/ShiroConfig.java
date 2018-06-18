@@ -1,8 +1,12 @@
 package ci.ten.config.shiro;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
+import ci.ten.config.redis.RedisSessionDao;
+import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +16,10 @@ import java.util.Map;
 
 @Configuration
 public class ShiroConfig {
+
+    @Autowired
+    RedisSessionDao sessionDao;
+
     /**
      * 创建ShiroFilterFactoryBean
      */
@@ -31,10 +39,13 @@ public class ShiroConfig {
          */
         Map<String,String> filterMap = new LinkedHashMap<>();
         //需要拦截的资源地址，必须认证（登录）才能访问
-        filterMap.put("/login","anon");     //放行login请求
         //filterMap.put("/logout", "logout");
-        filterMap.put("/index","authc");   //意味ten目录下所有资源都必须认证（登录）才能访问
         filterMap.put("/login","anon");     //放行login请求
+        filterMap.put("/check","anon");     //放行check请求
+        filterMap.put("/unauthorized","anon");     //放行unauthorized请求
+        filterMap.put("/register/*","anon");     //放行register请求
+        filterMap.put("/favicon.ico", "anon");
+        filterMap.put("/*","authc");   //意为目录下所有资源都必须认证（登录）才能访问
         //filterMap.put("/logout", "logout");
         //授权过滤器
         //注意：当授权拦截之后，Shiro会自动跳转到未授权页面
@@ -56,6 +67,7 @@ public class ShiroConfig {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         //关联Realm
         securityManager.setRealm(userRealm);
+        securityManager.setSessionManager(sessionManager());
         return  securityManager;
     }
     /**
@@ -75,6 +87,14 @@ public class ShiroConfig {
     }
 
 
+    @Bean
+    public SessionManager sessionManager() {
+        DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
+        sessionManager.setSessionDAO(sessionDao);
+//        sessionManager.setGlobalSessionTimeout(1800);
+//        SecurityUtils.getSubject().getSession().setTimeout(-1000l);
+        return sessionManager;
+    }
 
 
 
