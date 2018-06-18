@@ -10,6 +10,9 @@
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="state" property="state" jdbcType="INTEGER" />
     <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="role" property="role" jdbcType="VARCHAR" />
+    <result column="salt" property="salt" jdbcType="VARCHAR" />
+    <result column="deleted" property="deleted" jdbcType="BIT" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -70,7 +73,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, code, username, password, create_time, update_time, state, nick_name
+    id, code, username, password, create_time, update_time, state, nick_name, role, salt, 
+    deleted
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="ci.ten.model.UserExample" >
     select
@@ -105,10 +109,12 @@
   <insert id="insert" parameterType="ci.ten.model.User" >
     insert into t_user (id, code, username, 
       password, create_time, update_time, 
-      state, nick_name)
+      state, nick_name, role, 
+      salt, deleted)
     values (#{id,jdbcType=BIGINT}, #{code,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
-      #{state,jdbcType=INTEGER}, #{nickName,jdbcType=VARCHAR})
+      #{state,jdbcType=INTEGER}, #{nickName,jdbcType=VARCHAR}, #{role,jdbcType=VARCHAR}, 
+      #{salt,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="ci.ten.model.User" >
     insert into t_user
@@ -137,6 +143,15 @@
       <if test="nickName != null" >
         nick_name,
       </if>
+      <if test="role != null" >
+        role,
+      </if>
+      <if test="salt != null" >
+        salt,
+      </if>
+      <if test="deleted != null" >
+        deleted,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -162,6 +177,15 @@
       </if>
       <if test="nickName != null" >
         #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null" >
+        #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=BIT},
       </if>
     </trim>
   </insert>
@@ -198,6 +222,15 @@
       <if test="record.nickName != null" >
         nick_name = #{record.nickName,jdbcType=VARCHAR},
       </if>
+      <if test="record.role != null" >
+        role = #{record.role,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salt != null" >
+        salt = #{record.salt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deleted != null" >
+        deleted = #{record.deleted,jdbcType=BIT},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -212,7 +245,10 @@
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       state = #{record.state,jdbcType=INTEGER},
-      nick_name = #{record.nickName,jdbcType=VARCHAR}
+      nick_name = #{record.nickName,jdbcType=VARCHAR},
+      role = #{record.role,jdbcType=VARCHAR},
+      salt = #{record.salt,jdbcType=VARCHAR},
+      deleted = #{record.deleted,jdbcType=BIT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -241,6 +277,15 @@
       <if test="nickName != null" >
         nick_name = #{nickName,jdbcType=VARCHAR},
       </if>
+      <if test="role != null" >
+        role = #{role,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -252,7 +297,10 @@
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       state = #{state,jdbcType=INTEGER},
-      nick_name = #{nickName,jdbcType=VARCHAR}
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      role = #{role,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

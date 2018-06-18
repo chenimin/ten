@@ -35,13 +35,27 @@ spring:
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.winterchen.model
+  type-aliases-package: ci.ten.model
 
-#pagehelper
-pagehelper:
-    helperDialect: mysql
-    reasonable: true
-    supportMethodsArguments: true
-    params: count=countSql
-    returnPageInfo: check
+
+rr:
+  datasource:
+   url: jdbc:mysql://127.0.0.1:3306/ten?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+   username: root
+   password: root
+   filters: stat
+   maxActive: 5
+   initialSize: 5
+   maxWait: 60000
+   minIdle: 1
+   timeBetweenEvictionRunsMillis: 60000
+   minEvictableIdleTimeMillis: 300000
+   validationQuery: SELECT 'x'
+   testWhileIdle: true
+   testOnBorrow: false
+   testOnReturn: false
+   poolPreparedStatements: false
+   maxOpenPreparedStatements: 20
+   slowSqlMillis: 5000
+   isLogSlowSql: true
 

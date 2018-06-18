@@ -19,6 +19,12 @@ public class User {
 
     private String nickName;
 
+    private String role;
+
+    private String salt;
+
+    private Boolean deleted;
+
     public Long getId() {
         return id;
     }
@@ -81,5 +87,29 @@ public class User {
 
     public void setNickName(String nickName) {
         this.nickName = nickName;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
     }
 }

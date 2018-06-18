@@ -18,20 +18,20 @@ public class AjaxResult<T> {
     private Long count;
 
     public AjaxResult() {
-        this.code = 200;
+        this.code = StatusCodeConstants.SUCCESS;
         this.msg = "success";
         this.count = 0L;
         this.data = Collections.emptyList();
     }
 
     public AjaxResult(Object data) {
-        this.code = 200;
+        this.code = StatusCodeConstants.SUCCESS;
         this.msg = "success";
         this.count = 0L;
         this.data = data;
     }
     public AjaxResult(Page page , Object data) {
-        this.code = 200;
+        this.code = StatusCodeConstants.SUCCESS;
         this.msg = "success";
         this.count = 0L;
         this.data = data;
