@@ -33,7 +33,7 @@ public class LoginController {
 
     @RequestMapping("/check")
     @ResponseBody
-    public AjaxResult check(String  username,String password){
+    public AjaxResult check(String  username,String password,Boolean rememberMe){
 
         /**
          * 使用Shiro编写认证操作
@@ -41,7 +41,7 @@ public class LoginController {
         //1.获取Subject
         Subject subject = SecurityUtils.getSubject();
         //2.封装用户数据
-        UsernamePasswordToken token = new UsernamePasswordToken(username,password);
+        UsernamePasswordToken token = new UsernamePasswordToken(username,password,rememberMe);
         //3.执行登录方法
         try{
             subject.login(token);
