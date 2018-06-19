@@ -40,8 +40,15 @@ public class ShiroConfig {
         Map<String,String> filterMap = new LinkedHashMap<>();
         //需要拦截的资源地址，必须认证（登录）才能访问
         //filterMap.put("/logout", "logout");
+        filterMap.put("/err","anon");     //放行error请求
         filterMap.put("/login","anon");     //放行login请求
         filterMap.put("/check","anon");     //放行check请求
+        //放行资源请求
+        filterMap.put("/css/*","anon");
+        filterMap.put("/fonts/*","anon");
+        filterMap.put("/images/*","anon");
+        filterMap.put("/js/*","anon");
+        filterMap.put("/lib/*","anon");
         filterMap.put("/unauthorized","anon");     //放行unauthorized请求
         filterMap.put("/register/*","anon");     //放行register请求
         filterMap.put("/favicon.ico", "anon");

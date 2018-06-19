@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -41,7 +42,7 @@ public class LoginController {
         //1.获取Subject
         Subject subject = SecurityUtils.getSubject();
         //2.封装用户数据
-        UsernamePasswordToken token = new UsernamePasswordToken(username,password,rememberMe);
+        UsernamePasswordToken token = new UsernamePasswordToken(username,password, rememberMe==null?false:rememberMe);
         //3.执行登录方法
         try{
             subject.login(token);

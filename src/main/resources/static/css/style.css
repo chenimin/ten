@@ -7,7 +7,8 @@
 ****************************************************************/
 body{background:#fff;color:#8E8F96;font-family:"Microsoft YaHei","Segoe UI","Lucida Grande",Helvetica,Arial,sans-serif}
 a{transition-property:background,color;transition-duration:.2s;transition-timing-function:ease-out;-moz-transition-timing-function:ease-out;-webkit-transition-timing-function:ease-out;-o-transition-timing-function:ease-out;text-decoration:none}
-.newfinno-con{background:url(../images/404.png) no-repeat;width:768px;height:424px;margin:20px auto 0px}
+.newfinno-con{background:url(/images/404.png) no-repeat;width:768px;height:424px;margin:20px auto 0px}
+.newfinno-con500{background:url(/images/500.png) no-repeat;width:90%;height:100%;background-size:cover}
 .tips{text-align:center}
 .tips h2{font-size:20px;margin-bottom:20px}
 .tips .m-box{width:295px;margin:auto}
